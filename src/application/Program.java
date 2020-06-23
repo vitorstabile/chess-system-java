@@ -13,13 +13,12 @@ import chess.ChessPosition;
 public class Program {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
 		Scanner sc = new Scanner(System.in);
 		ChessMatch chessMatch = new ChessMatch();
 		List<ChessPiece> captured = new ArrayList<>();
 		
-		while(true) {
+		while (!chessMatch.getCheckMate()) {
 			try {
 				UI.clearScreen();
 				UI.printMatch(chessMatch, captured);
@@ -30,7 +29,6 @@ public class Program {
 				boolean[][] possibleMoves = chessMatch.possibleMoves(source);
 				UI.clearScreen();
 				UI.printBoard(chessMatch.getPieces(), possibleMoves);
-				
 				System.out.println();
 				System.out.print("Target: ");
 				ChessPosition target = UI.readChessPosition(sc);
@@ -41,16 +39,16 @@ public class Program {
 					captured.add(capturedPiece);
 				}
 			}
-			catch(ChessException e) {
+			catch (ChessException e) {
 				System.out.println(e.getMessage());
 				sc.nextLine();
 			}
-			catch(InputMismatchException e) {
+			catch (InputMismatchException e) {
 				System.out.println(e.getMessage());
 				sc.nextLine();
 			}
 		}
-		
+		UI.clearScreen();
+		UI.printMatch(chessMatch, captured);
 	}
-
 }
